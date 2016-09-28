@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/stylesheet.css">
+		<!-- import of webgl utilities -->
+        <script src="./js/commonFunctions.js"></script>
+        <script src="./js/gl-matrix-min.js"></script>
+        <script src="./js/webglTools.js"></script>
+		<!-- import application scripts -->
+        <script src="./js/scene.js"></script>
+        <script src="./js/planet.js"></script>
+
+
+    <!-- Mods script -->
+        <script src="./js/mods.js"></script>
+
+		<!-- vertex shader -->
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+			attribute vec4 aColor;
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			varying vec4 vColor;
+			void main(void) {
+				vColor = aColor;
+				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+			}
+        </script>
+
+		<!-- fragment shader -->
+        <script id="shader-fs" type="x-shader/x-fragment">
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+				varying vec4 vColor;
+				void main(void) {
+				  gl_FragColor = vColor;
+				}
+        </script>
+    </head>
+	<!-- initialize webgl onload -->
+    <body onload="initWebGL()">
+		<script>
+			displayTitle("Ch.04 Projet démo - La base", 1,1,1,1,1,1,1);
+		</script>
+		<br>
+			Projet démo afin de faire un rendu de la terre et de la lune, étape 1. Montre l'implémentation d'un objet javascript et de son utilisation dans un contexte webgl. <a href="planet-ch04.zip">Télécharger la démo</a>
+		<br>
+
+		<!-- webgl canvas -->
+		<canvas id="webgl-canvas" width="500" height="500">
+		  HTML5 is not supported
+		</canvas>
+
+		<!-- render mode button -->
+		<button id="switchWireframe" onclick="changeRender()">Shape / Wireframe</button>
+
+    <!-- divisions number range -->
+    <input type="range" id="myRange" oninput="updateDivisions()" min="3" max="1000" value="100" />
+
+
+
+    </body>
+</html>
