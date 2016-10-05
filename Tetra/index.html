@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/stylesheet.css">
+		<!-- import of webgl utilities -->
+        <script src="./js/commonFunctions.js"></script>
+        <script src="./js/gl-matrix-min.js"></script>
+        <script src="./js/webglTools.js"></script>
+		<script src="debug/webgl-debug.js"></script>
+		<!-- import application scripts -->
+        <script src="./js/scene.js"></script>
+
+        <!-- import your scene objects here ! -->
+        <script src="./js/tetra.js"></script>
+
+		<!-- vertex shader -->
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+			attribute vec4 aColor;
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			varying vec4 vColor;
+			void main(void) {
+				vColor = aColor;
+				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+			}
+        </script>
+
+		<!-- fragment shader -->
+        <script id="shader-fs" type="x-shader/x-fragment">
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+				varying vec4 vColor;
+				void main(void) {
+				  gl_FragColor = vColor;
+				}
+        </script>
+    </head>
+	<!-- initialize webgl onload -->
+    <body onload="initWebGL()">
+		<script>
+			displayTitle("Canevas WebGL", 1,1,1,1,1,1,1);
+		</script>
+		<br>
+			Canevas pour un démarrage propre en WebGL
+		<br>
+		<!-- webgl canvas -->
+		<canvas id="webgl-canvas" width="500" height="500">
+		  HTML5 is not supported
+		</canvas>
+    </body>
+    <script src="./js/mouseMotionHandling.js"></script>
+</html>
