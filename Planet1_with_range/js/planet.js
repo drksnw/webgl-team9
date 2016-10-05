@@ -48,7 +48,7 @@ class Planet
 		//Based on division, generates the various vertices for the circle
 		for(var i = 0;i<360;i+=360/this.division)
 		{
-			this.vertices.push(this.radius * Math.sin(glMatrix.toRadian(i)), this.radius * Math.cos(glMatrix.toRadian(i)),0.0);
+			this.vertices.push(this.radius * Math.sin(glMatrix.toRadian(i))+Math.sin(glMatrix.toRadian(i))/9, this.radius * Math.cos(glMatrix.toRadian(i)),0.0);
 
 		}
 
